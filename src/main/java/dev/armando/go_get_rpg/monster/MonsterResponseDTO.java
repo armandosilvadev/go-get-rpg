@@ -6,8 +6,9 @@ public record MonsterResponseDTO(String id,
                                  double maxHp,
                                  Double mana,
                                  Double maxMana,
-                                 boolean boss) {
+                                 boolean boss,
+                                 String image) {
     public MonsterResponseDTO(Monster monster) {
-        this(monster.getId(), monster.getName(), monster.getHp(), monster.getMaxHp(), monster.getMana(), monster.getMaxMana(), monster.isBoss());
+        this(monster.getId(), monster.getName(), monster.getHp(), monster.getMaxHp(), monster.getMana(), monster.getMaxMana(), monster.isBoss(), monster.getImage());
     }
 }
