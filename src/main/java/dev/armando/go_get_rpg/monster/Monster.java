@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Table(name = "monsters")
 @Entity(name = "monsters")
@@ -24,7 +25,7 @@ public class Monster {
     private boolean boss;
     private String image;
 
-    public Monster(MonsterRequestDTO data) {
+    public Monster(@NonNull MonsterRequestDTO data) {
         this.name = data.name();
         if (data.hp() > data.maxHp()) {
             throw new IllegalArgumentException("HP exceeds maximum");
@@ -33,12 +34,16 @@ public class Monster {
         this.hp = data.hp();
         this.maxHp = data.maxHp();
 
+        if (data.mana() != null && data.maxMana() == null) {
+            throw new IllegalArgumentException("maxMana is required since mana is provided");
+        }
+
         if (data.mana() != null && data.maxMana() != null && data.mana() > data.maxMana()) {
             throw new IllegalArgumentException("Mana exceeds maximum");
         }
 
-        this.mana = data.mana() !=null ? data.mana(): 0;
-        this.maxMana = data.maxMana() != null ? data.maxHp() : 0;
+        this.mana = data.mana() !=null ? data.mana() : 0;
+        this.maxMana = data.maxMana() != null ? data.maxMana() : 0;
 
         this.boss = data.boss();
         this.image = data.image();

@@ -1,6 +1,7 @@
 package dev.armando.go_get_rpg.monster;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,20 +11,40 @@ import java.util.List;
 public class MonsterController {
 
     @Autowired
-    private MonsterRepository monsterRepository;
+    private MonsterService monsterService;
 
+    // Get The Monster by its ID
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping
-    public List<MonsterResponseDTO> getAll() {
-        List<MonsterResponseDTO> monsterList = monsterRepository.findAll().stream().map(MonsterResponseDTO::new).toList();
-        return monsterList;
+    @GetMapping("/{id}")
+    public ResponseEntity<MonsterResponseDTO> getMonsterById(@PathVariable String id) {
+        return monsterService.getMonsterById(id);
     }
 
+    // Delete the monster by its ID
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MonsterResponseDTO> deleteMonsterById(@PathVariable String id) {
+        return monsterService.deleteMonsterById(id);
+    }
+
+    // Get all monsters
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping
+    public List<MonsterResponseDTO> getAllMonsters() {
+        return monsterService.getAllMonsters();
+    }
+
+    // Delete all monsters
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping
+    public ResponseEntity<MonsterResponseDTO> deleteAll() {
+        return monsterService.deleteAllMonsters();
+    }
+
+    // Save a new monster
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public MonsterRequestDTO saveMonster(@RequestBody MonsterRequestDTO data) {
-        Monster monsterData = new Monster(data);
-        Monster savedMonster = monsterRepository.save(monsterData);
-        return new MonsterRequestDTO(savedMonster);
+        return monsterService.saveMonster(data);
     }
 }
