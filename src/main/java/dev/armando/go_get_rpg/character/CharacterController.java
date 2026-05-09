@@ -20,11 +20,26 @@ public class CharacterController {
         return characterService.getCharacterById(id);
     }
 
+    // Delete character by its ID
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CharacterResponseDTO> deleteCharacterById(@PathVariable String id) {
+        return characterService.deleteCharacterById(id);
+    }
+
+
     // Get all characters
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<CharacterResponseDTO> getAllCharacters() {
         return characterService.getAllCharacters();
+    }
+
+    // Delete all characters
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping
+    public ResponseEntity<CharacterResponseDTO> deleteAllCharacters() {
+        return characterService.deleteAllCharacters();
     }
 
     // Save new character

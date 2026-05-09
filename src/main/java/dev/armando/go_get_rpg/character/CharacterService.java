@@ -19,11 +19,30 @@ public class CharacterService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Delete character by its ID
+    public ResponseEntity<CharacterResponseDTO> deleteCharacterById(String id) {
+        boolean characterExists = characterRepository.existsById(id);
+
+        if(!characterExists) {
+            return ResponseEntity.notFound().build();
+        }
+
+        characterRepository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
     // Get all characters
     public List<CharacterResponseDTO> getAllCharacters() {
         List<CharacterResponseDTO> charactersList = characterRepository.findAll().stream()
                 .map(CharacterResponseDTO::new).toList();
         return charactersList;
+    }
+
+    // Deletea all characters
+    public ResponseEntity<CharacterResponseDTO> deleteAllCharacters() {
+        characterRepository.deleteAll();
+        return ResponseEntity.noContent().build();
     }
 
     // Save a new character
