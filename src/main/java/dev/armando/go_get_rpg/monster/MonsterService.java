@@ -45,7 +45,7 @@ public class MonsterService {
     }
 
     // Save a new monster
-    public MonsterRequestDTO saveMonster(@RequestBody MonsterRequestDTO data) {
+    public MonsterRequestDTO saveMonster(MonsterRequestDTO data) {
         Monster monsterData = new Monster(data);
         Monster savedMonster = monsterRepository.save(monsterData);
         return new MonsterRequestDTO(savedMonster);
