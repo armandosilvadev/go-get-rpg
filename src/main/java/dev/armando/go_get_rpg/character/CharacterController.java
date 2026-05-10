@@ -48,4 +48,11 @@ public class CharacterController {
     public CharacterRequestDTO saveCharacter(@RequestBody CharacterRequestDTO data) {
         return characterService.saveCharacter(data);
     }
+
+    // Update character by its ID
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/{id}")
+    public ResponseEntity<CharacterResponseDTO> updateCharacterById(@PathVariable String id, @RequestBody CharacterRequestDTO data) {
+        return ResponseEntity.ok(characterService.udpateCharacterById(id, data));
+    }
 }

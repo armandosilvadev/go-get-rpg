@@ -1,15 +1,13 @@
 package dev.armando.go_get_rpg.character;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.jspecify.annotations.NonNull;
 
 @Table(name = "characters")
 @Entity(name = "characters")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")

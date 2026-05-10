@@ -51,4 +51,21 @@ public class CharacterService {
         Character savedCharacter = characterRepository.save(character);
         return new CharacterRequestDTO(savedCharacter);
     }
+
+    // Update character by its ID
+    public CharacterResponseDTO udpateCharacterById(String id, CharacterRequestDTO data) {
+        Character character = characterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+
+        character.setName(data.name());
+        character.setMaxHp(data.maxHp());
+        character.setHp(data.hp());
+        character.setMaxMana(data.mana());
+        character.setMana(data.mana());
+        character.setNpc(data.npc());
+        character.setImage(data.image());
+
+        characterRepository.save(character);
+        return new CharacterResponseDTO(character);
+    }
 }
