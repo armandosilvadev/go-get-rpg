@@ -17,14 +17,16 @@ public class MonsterController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<MonsterResponseDTO> getMonsterById(@PathVariable String id) {
-        return monsterService.getMonsterById(id);
+        return ResponseEntity.ok(monsterService.getMonsterById(id));
     }
 
     // Delete the monster by its ID
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
-    public ResponseEntity<MonsterResponseDTO> deleteMonsterById(@PathVariable String id) {
-        return monsterService.deleteMonsterById(id);
+    public ResponseEntity<Void> deleteMonsterById(@PathVariable String id) {
+        monsterService.deleteMonsterById(id);
+
+        return ResponseEntity.notFound().build();
     }
 
     // Get all monsters
@@ -37,8 +39,10 @@ public class MonsterController {
     // Delete all monsters
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping
-    public ResponseEntity<MonsterResponseDTO> deleteAll() {
-        return monsterService.deleteAllMonsters();
+    public ResponseEntity<Void> deleteAll() {
+        monsterService.deleteAllMonsters();
+
+        return ResponseEntity.noContent().build();
     }
 
     // Save a new monster

@@ -12,23 +12,19 @@ public class MonsterService {
     private MonsterRepository monsterRepository;
 
     // Get monster by its ID
-    public ResponseEntity<MonsterResponseDTO> getMonsterById(String id) {
-        return monsterRepository.findById(id)
-                .map(monster -> ResponseEntity.ok(new MonsterResponseDTO(monster)))
-                .orElse(ResponseEntity.notFound().build());
+    public MonsterResponseDTO getMonsterById(String id) {
+        Monster monster = monsterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Monster not found"));
+
+        return new MonsterResponseDTO(monster);
     }
 
     // Delete monster by its ID
-    public ResponseEntity<MonsterResponseDTO> deleteMonsterById(String id) {
-        boolean monsterExists = monsterRepository.existsById(id);
+    public void deleteMonsterById(String id) {
+        Monster monster = monsterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Monster not found"));
 
-        if (!monsterExists) {
-            return ResponseEntity.notFound().build();
-        }
-
-        monsterRepository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+        monsterRepository.delete(monster);
     }
 
     // Get all monster
@@ -38,9 +34,8 @@ public class MonsterService {
     }
 
     // Delete all monsters
-    public ResponseEntity<MonsterResponseDTO> deleteAllMonsters() {
+    public void deleteAllMonsters() {
         monsterRepository.deleteAll();
-        return ResponseEntity.noContent().build();
     }
 
     // Save a new monster
