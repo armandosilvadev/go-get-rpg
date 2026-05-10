@@ -14,6 +14,7 @@ import org.jspecify.annotations.NonNull;
 public class Monster {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Setter(AccessLevel.NONE)
     private String id;
     private String name;
     private double hp;
