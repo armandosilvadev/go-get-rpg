@@ -44,7 +44,14 @@ public class MonsterController {
     // Save a new monster
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
-    public MonsterRequestDTO saveMonster(@RequestBody MonsterRequestDTO data) {
-        return monsterService.saveMonster(data);
+    public ResponseEntity<MonsterRequestDTO> saveMonster(@RequestBody MonsterRequestDTO data) {
+        return ResponseEntity.ok(monsterService.saveMonster(data));
+    }
+
+    // Update monster
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/{id}")
+    public ResponseEntity<MonsterResponseDTO> updateMonsterById(@PathVariable String id, @RequestBody MonsterRequestDTO data) {
+        return ResponseEntity.ok(monsterService.updateMonsterById(id, data));
     }
 }

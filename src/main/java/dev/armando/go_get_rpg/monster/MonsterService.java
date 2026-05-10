@@ -3,7 +3,6 @@ package dev.armando.go_get_rpg.monster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -49,5 +48,23 @@ public class MonsterService {
         Monster monsterData = new Monster(data);
         Monster savedMonster = monsterRepository.save(monsterData);
         return new MonsterRequestDTO(savedMonster);
+    }
+
+    // Update monster by its ID
+    public MonsterResponseDTO updateMonsterById(String id, MonsterRequestDTO data) {
+        Monster monster = monsterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Monster not found."));
+
+        monster.setName(data.name());
+        monster.setMaxHp(data.maxHp());
+        monster.setHp(data.hp());
+        monster.setMaxMana(data.maxMana());
+        monster.setMana(data.mana());
+        monster.setBoss(data.boss());
+        monster.setImage(data.image());
+
+        Monster updadeMonster = monsterRepository.save(monster);
+
+        return new MonsterResponseDTO(updadeMonster);
     }
 }
