@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/character")
 public class CharacterController {
@@ -14,45 +15,42 @@ public class CharacterController {
     private CharacterService characterService;
 
     // Get character by its Id
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<CharacterResponseDTO> getCharacterById(@PathVariable String id) {
-        return characterService.getCharacterById(id);
+        return ResponseEntity.ok(characterService.getCharacterById(id));
     }
 
     // Delete character by its ID
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
-    public ResponseEntity<CharacterResponseDTO> deleteCharacterById(@PathVariable String id) {
-        return characterService.deleteCharacterById(id);
+    public ResponseEntity<Void> deleteCharacterById(@PathVariable String id) {
+        characterService.deleteCharacterById(id);
+
+        return ResponseEntity.noContent().build();
     }
 
-
     // Get all characters
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<CharacterResponseDTO> getAllCharacters() {
         return characterService.getAllCharacters();
     }
 
     // Delete all characters
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping
-    public ResponseEntity<CharacterResponseDTO> deleteAllCharacters() {
-        return characterService.deleteAllCharacters();
+    public ResponseEntity<Void> deleteAllCharacters() {
+        characterService.deleteAllCharacters();
+
+        return ResponseEntity.noContent().build();
     }
 
     // Save new character
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public CharacterRequestDTO saveCharacter(@RequestBody CharacterRequestDTO data) {
         return characterService.saveCharacter(data);
     }
 
     // Update character by its ID
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping("/{id}")
     public ResponseEntity<CharacterResponseDTO> updateCharacterById(@PathVariable String id, @RequestBody CharacterRequestDTO data) {
-        return ResponseEntity.ok(characterService.udpateCharacterById(id, data));
+        return ResponseEntity.ok(characterService.updateCharacterById(id, data));
     }
 }

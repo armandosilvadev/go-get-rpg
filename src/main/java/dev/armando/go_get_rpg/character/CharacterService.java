@@ -3,7 +3,6 @@ package dev.armando.go_get_rpg.character;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -13,23 +12,19 @@ public class CharacterService {
     private CharacterRepository characterRepository;
 
     // Get character by its Id
-    public ResponseEntity<CharacterResponseDTO> getCharacterById(String id) {
-        return characterRepository.findById(id)
-                .map(character -> ResponseEntity.ok(new CharacterResponseDTO(character)))
-                .orElse(ResponseEntity.notFound().build());
+    public CharacterResponseDTO getCharacterById(String id) {
+        Character character = characterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+
+        return new CharacterResponseDTO(character);
     }
 
     // Delete character by its ID
-    public ResponseEntity<CharacterResponseDTO> deleteCharacterById(String id) {
-        boolean characterExists = characterRepository.existsById(id);
+    public void deleteCharacterById(String id) {
+        Character character = characterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
 
-        if(!characterExists) {
-            return ResponseEntity.notFound().build();
-        }
-
-        characterRepository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+        characterRepository.delete(character);
     }
 
     // Get all characters
@@ -39,10 +34,9 @@ public class CharacterService {
         return charactersList;
     }
 
-    // Deletea all characters
-    public ResponseEntity<CharacterResponseDTO> deleteAllCharacters() {
+    // Delete alll characters
+    public void deleteAllCharacters() {
         characterRepository.deleteAll();
-        return ResponseEntity.noContent().build();
     }
 
     // Save a new character
@@ -53,14 +47,14 @@ public class CharacterService {
     }
 
     // Update character by its ID
-    public CharacterResponseDTO udpateCharacterById(String id, CharacterRequestDTO data) {
+    public CharacterResponseDTO updateCharacterById(String id, CharacterRequestDTO data) {
         Character character = characterRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Character not found"));
 
         character.setName(data.name());
         character.setMaxHp(data.maxHp());
         character.setHp(data.hp());
-        character.setMaxMana(data.mana());
+        character.setMaxMana(data.maxMana());
         character.setMana(data.mana());
         character.setNpc(data.npc());
         character.setImage(data.image());
