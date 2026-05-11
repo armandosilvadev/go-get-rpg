@@ -8,13 +8,13 @@ interface CharacterProfileProps {
 const CharacterProfile = ({ characterImage, name }: CharacterProfileProps) => {
   return (
     <div className={styles.profileBox}>
-      <figure className={`${styles.figureBox} flex flex-center`}>
+      <figure className={`${styles.figureBox} flex flex-center flex-column`}>
         <img
           src={characterImage}
           alt={`${name}'s image`}
           className={styles.characterImage}
         />
-        <figcaption>{name}</figcaption>
+        <figcaption className={styles.characterName}>{name}</figcaption>
       </figure>
     </div>
   );
