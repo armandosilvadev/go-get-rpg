@@ -1,0 +1,27 @@
+@import './variables.css';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  background: var(--bg-color);
+  color: var(--txt-color);
+  height: 100%;
+}
+
+.flex {
+  display: center;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
