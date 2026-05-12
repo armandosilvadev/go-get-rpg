@@ -1,0 +1,8 @@
+@import '../../../assets/styles/variables.css';
+
+.DiceRollContainer {
+  height: 18rem;
+  border: solid 1px var(--main-color);
+  border-radius: 1.4rem;
+  grid-column: 1 / -1;
+}
