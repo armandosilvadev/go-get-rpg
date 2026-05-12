@@ -1,6 +1,6 @@
 @import '../../../assets/styles/variables.css';
 
-.DiceRollContainer {
+.DiceRollerContainer {
   height: 18rem;
   border: solid 1px var(--main-color);
   border-radius: 1.4rem;

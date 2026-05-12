@@ -1,7 +1,7 @@
 import styles from './CharacterBox.module.css';
 import CharacterProfile from '../layout/CharacterProfile/CharacterProfile';
 import CharacterStats from '../layout/CharacterStats/CharacterStats';
-import DiceRoll from '../layout/DiceRoll/DiceRoll';
+import DiceRoller from '../layout/DiceRoll/DiceRoller';
 
 const CharacterBox = () => {
   return (
@@ -16,7 +16,7 @@ const CharacterBox = () => {
         maxMana={50}
         mana={45}
       />
-      <DiceRoll />
+      <DiceRoller />
     </div>
   );
 };
