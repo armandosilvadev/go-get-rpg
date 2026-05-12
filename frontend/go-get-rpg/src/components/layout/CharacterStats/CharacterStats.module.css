@@ -1,0 +1,20 @@
+.characterStatsBox {
+  font-size: 1.8rem;
+}
+
+.hpBox {
+  border-bottom: solid 1px;
+  border-image-slice: 1;
+  border-image-source: radial-gradient(
+    circle,
+    rgba(109, 94, 245, 1) 18%,
+    rgba(109, 94, 245, 1) 43%,
+    rgba(129, 116, 247, 1) 71%,
+    rgba(146, 135, 248, 0) 100%
+  );
+  padding: 0.6rem;
+}
+
+.manaBox {
+  padding: 0.6rem;
+}
