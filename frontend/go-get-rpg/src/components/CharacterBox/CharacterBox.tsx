@@ -2,6 +2,7 @@ import styles from './CharacterBox.module.css';
 import CharacterProfile from '../layout/CharacterProfile/CharacterProfile';
 import CharacterStats from '../layout/CharacterStats/CharacterStats';
 import DiceRoller from '../layout/DiceRoll/DiceRoller';
+import CharacterSelector from '../layout/CharacterSelector/CharacterSelector';
 
 const CharacterBox = () => {
   return (
@@ -17,6 +18,7 @@ const CharacterBox = () => {
         mana={45}
       />
       <DiceRoller />
+      <CharacterSelector />
     </div>
   );
 };
