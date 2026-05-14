@@ -10,7 +10,10 @@ import { defaultImage } from '../../variables/defaultImage';
 import { useCharacterData } from '../../hooks/useCharacterData';
 
 const CharacterBox = () => {
+  // character data
   const { data } = useCharacterData();
+
+  // selected character
   const [selectedCharacter, setSelectedCharacter] = useState<
     CharacterData | undefined
   >(() => {
