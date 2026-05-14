@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styles from './AddCharacterModal.module.css';
 import Button from '../ui/Button/Button';
+import { useCharacterDataMutate } from '../../hooks/useCharacterDataMutate';
+import type { CharacterData } from '../interface/characterData';
 
 interface AddCharacterModalProps {
   isOpen: boolean;
@@ -11,21 +13,26 @@ const AddCharacterModal = ({
   isOpen,
   handleIsOpen,
 }: AddCharacterModalProps) => {
-  const [currentlyHp, setCurrentlyHp] = useState<number>(0);
-  const [currentlyMana, setCurrentlyMana] = useState<number>(0);
+  // name
+  const [name, setName] = useState<string>('');
+
+  // max hp
+  const [maxHp, setMaxHp] = useState<number>(0);
+  // hp
+  const [hp, setHp] = useState<number>();
+
+  // has mana is checked
   const [hasMana, setHasMana] = useState<boolean>(false);
+  // max mana
+  const [maxMana, setMaxMana] = useState<number>(0);
+  // mana
+  const [mana, setMana] = useState<number>();
 
-  const handleCurrentlyHp = (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    setCurrentlyHp(Number(e.target.value));
-  };
+  // is npc
+  const [npc, setNpc] = useState<boolean>(false);
 
-  const handleCurrentlyMana = (
-    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    setCurrentlyMana(Number(e.target.value));
-  };
+  // mutate character
+  const { isError, isPending, mutate } = useCharacterDataMutate();
 
   const handleHasMana = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -33,32 +40,56 @@ const AddCharacterModal = ({
     setHasMana(e.target.checked);
   };
 
+  // submit new character
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const characterData: CharacterData = {
+      name: name.trim(),
+      maxHp,
+      hp: hp || maxHp,
+      maxMana,
+      mana: mana || maxMana,
+      npc,
+    };
+
+    mutate(characterData, {
+      onSuccess: () => {
+        handleIsOpen();
+        e.target.reset();
+      },
+    });
+  };
+
   return (
     <div
       className={`${styles.addCharacterContainer} ${styles[isOpen ? 'show' : 'hidden']}`}
     >
       <h2>Add New Character</h2>
-      <form className={`${styles.addCharacterForm} flex flex-column`}>
+      <form
+        className={`${styles.addCharacterForm} flex flex-column`}
+        onSubmit={handleSubmit}
+      >
         <div className={styles.nameBox}>
-          <label htmlFor='name'>Name: </label>
+          <label htmlFor='InName'>Name: </label>
           <input
             type='text'
             maxLength={30}
             id='InName'
             required
-            autoFocus
+            onChange={e => setName(e.target.value)}
           />
         </div>
 
         <div className={styles.hpBox}>
-          <label htmlFor='InMaxHP'>Maximum HP: </label>
+          <label htmlFor='InMaxHp'>Maximum HP: </label>
           <input
             type='number'
             id='InMaxHp'
             min={1}
             max={999}
             required
-            onChange={handleCurrentlyHp}
+            onChange={e => setMaxHp(Number(e.target.value))}
           />
 
           <label htmlFor='InHp'>Currently HP: </label>
@@ -66,8 +97,9 @@ const AddCharacterModal = ({
             type='number'
             id='InHp'
             min={0}
-            max={currentlyHp}
-            placeholder={currentlyHp.toString()}
+            max={maxHp}
+            placeholder={maxHp.toString()}
+            onChange={e => setHp(Number(e.target.value))}
           />
         </div>
 
@@ -88,7 +120,7 @@ const AddCharacterModal = ({
             min={0}
             max={999}
             required={hasMana}
-            onChange={handleCurrentlyMana}
+            onChange={e => setMaxMana(Number(e.target.value))}
           />
 
           <label htmlFor='InMana'>Mana: </label>
@@ -96,25 +128,30 @@ const AddCharacterModal = ({
             type='number'
             id='InMana'
             min={0}
-            max={currentlyMana}
-            placeholder={currentlyMana.toString()}
+            max={maxMana}
+            placeholder={maxMana.toString()}
+            onChange={e => setMana(Number(e.target.value))}
           />
         </div>
 
         <input
           type='checkbox'
           id='InIsNpc'
+          onChange={e => setNpc(e.target.checked)}
         />
         <label htmlFor='InIsNpc'>NPC</label>
+
+        {isError}
 
         <div className={styles.buttonContainer}>
           <Button
             text='Cancel'
+            type='button'
             onClick={handleIsOpen}
           />
           <Button
             type='submit'
-            text='Add'
+            text={isPending ? 'Adding...' : 'Add'}
           />
         </div>
       </form>

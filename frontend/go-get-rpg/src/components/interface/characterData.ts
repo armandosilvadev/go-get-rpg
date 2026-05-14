@@ -1,10 +1,10 @@
 export interface CharacterData {
-  id: string;
+  id?: string;
   name: string | undefined;
   maxHp: number;
   hp: number;
   maxMana: number;
   mana: number;
-  isNpc: boolean;
-  charImage: string | undefined;
+  npc: boolean;
+  charImage?: string;
 }
