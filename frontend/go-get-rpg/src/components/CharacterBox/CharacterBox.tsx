@@ -3,6 +3,7 @@ import CharacterProfile from '../layout/CharacterProfile/CharacterProfile';
 import CharacterStats from '../layout/CharacterStats/CharacterStats';
 import DiceRoller from '../layout/DiceRoll/DiceRoller';
 import CharacterSelector from '../layout/CharacterSelector/CharacterSelector';
+import DiceHistory from '../layout/DiceHistory/DiceHistory';
 
 const CharacterBox = () => {
   return (
@@ -19,6 +20,7 @@ const CharacterBox = () => {
       />
       <DiceRoller />
       <CharacterSelector />
+      <DiceHistory />
     </div>
   );
 };

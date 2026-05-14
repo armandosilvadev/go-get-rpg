@@ -1,5 +1,8 @@
 :root {
   --main-color: #6d5ef5;
+  
+  /* border */
+  --border-radius-14: 1.4rem;
 
   /* background colors */
   --bg-color: #040118;

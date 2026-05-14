@@ -1,13 +1,8 @@
 @import '../../../assets/styles/variables.css';
 
-.characterSelectorContainer {
-  height: 21.7rem;
+.diceHistoryContainer {
   border: solid 1px var(--main-color);
   border-radius: var(--border-radius-14);
-  grid-column: 1 / -2;
-}
-
-.buttonContainer {
   width: 100%;
-  padding: 5px;
+  height: 100%;
 }
