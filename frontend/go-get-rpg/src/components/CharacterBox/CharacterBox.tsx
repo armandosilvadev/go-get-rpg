@@ -4,22 +4,56 @@ import CharacterStats from '../layout/CharacterStats/CharacterStats';
 import DiceRoller from '../layout/DiceRoll/DiceRoller';
 import CharacterSelector from '../layout/CharacterSelector/CharacterSelector';
 import DiceHistory from '../layout/DiceHistory/DiceHistory';
+import { type CharacterData } from '../interface/characterData';
+import { useEffect, useState } from 'react';
+import { defaultImage } from '../../variables/defaultImage';
+import { useCharacterData } from '../../hooks/useCharacterData';
 
 const CharacterBox = () => {
+  const { data } = useCharacterData();
+  const [selectedCharacter, setSelectedCharacter] = useState<
+    CharacterData | undefined
+  >(() => {
+    const storedCharacter = localStorage.getItem('selectedCharacter');
+
+    if (storedCharacter) return JSON.parse(storedCharacter);
+    else return undefined;
+  });
+
+  const handleSelectedCharacter = (id: string) => {
+    const character = data?.find(character => character.id === id);
+
+    if (character) {
+      setSelectedCharacter(character);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedCharacter) {
+      localStorage.setItem(
+        'selectedCharacter',
+        JSON.stringify(selectedCharacter),
+      );
+    }
+  }, [selectedCharacter]);
+
   return (
     <div className={`${styles.characterBoxContainer} grid`}>
       <CharacterProfile
-        characterImage='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.w01XJ7xs7N0mqkQdHamWuAHaHa%3Fpid%3DApi&f=1&ipt=be9772521e01267bcb1b7b2c78f955c2752a9acf5eb5ca89a931ec1982e7dc2a&ipo=images'
-        name='Character Name'
+        characterImage={selectedCharacter?.charImage ?? defaultImage}
+        name={selectedCharacter?.name}
       />
       <CharacterStats
-        maxHp={100}
-        hp={90}
-        maxMana={50}
-        mana={45}
+        maxHp={selectedCharacter?.maxHp ?? 0}
+        hp={selectedCharacter?.hp ?? 0}
+        maxMana={selectedCharacter?.maxMana}
+        mana={selectedCharacter?.mana}
       />
       <DiceRoller />
-      <CharacterSelector />
+      <CharacterSelector
+        data={data}
+        handleSelectCharacter={handleSelectedCharacter}
+      />
       <DiceHistory />
     </div>
   );

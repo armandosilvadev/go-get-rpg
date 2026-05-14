@@ -19,3 +19,11 @@
 .manaBox {
   padding: 0.6rem;
 }
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}

@@ -2,7 +2,7 @@ import styles from './CharacterProfile.module.css';
 
 interface CharacterProfileProps {
   characterImage: string;
-  name: string;
+  name: string | undefined;
 }
 
 const CharacterProfile = ({ characterImage, name }: CharacterProfileProps) => {

@@ -25,7 +25,7 @@ const CharacterStats = ({ maxHp, hp, maxMana, mana }: CharacterStatsProps) => {
         <Button buttonStyle='plusFive' />
         <Button buttonStyle='plusOne' />
       </div>
-      <div className={styles.manaBox}>
+      <div className={`${styles.manaBox} ${styles[maxMana ? 'show' : 'hidden']}`}>
         <Button buttonStyle='minusOne' />
         <Button buttonStyle='minusFive' />
         <span className={styles.currentMana}>{mana}</span> /{' '}

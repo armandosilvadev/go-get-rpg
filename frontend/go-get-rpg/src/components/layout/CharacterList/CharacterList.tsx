@@ -1,9 +1,13 @@
-import { useCharacterData } from '../../../hooks/useCharacterData';
+import { type CharacterData } from '../../interface/characterData';
 import CharacterCard from '../../ui/CharacterCard/CharacterCard';
 import styles from './CharacterList.module.css';
 
-const CharacterList = () => {
-  const { data } = useCharacterData();
+interface CharacterListProps {
+  data: CharacterData[] | undefined;
+  handleSelectCharacter(id: string): void;
+}
+
+const CharacterList = ({data,  handleSelectCharacter }: CharacterListProps) => {
 
   return (
     <div className={styles.characterListContainer}>
@@ -21,6 +25,7 @@ const CharacterList = () => {
                 maxMana={character.maxMana}
                 mana={character.mana}
                 isNpc={character.isNpc}
+                selectCharacter={handleSelectCharacter}
               />
             </li>
           );

@@ -2,20 +2,27 @@ import type { CharacterData } from '../../interface/characterData';
 import Button from '../Button/Button';
 import styles from './CharacterCard.module.css';
 
+interface CharacterCardProps extends CharacterData {
+  selectCharacter(id: string): void;
+}
+
 const CharacterCard = ({
   id,
   charImage,
-  name,
+  name = '',
   maxHp,
   hp,
   maxMana,
   mana,
   isNpc,
-}: CharacterData) => {
+  selectCharacter,
+}: CharacterCardProps) => {
+   
   return (
     <div
       id={id}
       className={`${styles.characterCard} ${styles[isNpc ? 'npc' : 'player']} flex`}
+      onClick={() => selectCharacter(id)}
     >
       <div className={`${styles.characterProfile} flex`}>
         <img
@@ -32,7 +39,7 @@ const CharacterCard = ({
           {mana} / {maxMana}
         </span>
       </div>
-      <Button text='X'/>
+      <Button text='X' />
     </div>
   );
 };
