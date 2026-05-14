@@ -1,5 +1,6 @@
 .characterStatsBox {
   font-size: 1.8rem;
+  grid-column: 2 / -1;
 }
 
 .hpBox {

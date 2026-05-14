@@ -1,0 +1,14 @@
+@import '../../../assets/styles/variables.css';
+
+.characterListContainer {
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  overflow-y: scroll;
+}
+
+.characterList {
+  list-style: none;
+  font-size: 1.4rem;
+  gap: 1rem;
+}

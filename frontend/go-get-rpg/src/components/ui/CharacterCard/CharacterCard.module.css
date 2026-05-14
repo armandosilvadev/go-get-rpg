@@ -1,0 +1,45 @@
+@import '../../../assets/styles/variables.css';
+
+.characterCard {
+  border: solid 1px var(--main-color);
+  border-radius: 5px;
+  padding: 5px;
+  align-items: center;
+  width: 100%;
+}
+
+.characterProfile {
+  align-items: center;
+}
+
+.characterImage {
+  width: 25px;
+  border-radius: 5px;
+}
+
+.characterName {
+  padding: 4px 1.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 9rem;
+  margin-right: 3rem;
+}
+
+.statsCotainer {
+  width: 100%;
+}
+
+.hpBox {
+  border: solid 1px orangered;
+  border-radius: 3px;
+  padding: 4px;
+}
+
+.manaBox {
+  border: solid 1px rgb(36, 150, 242);
+  border-radius: 3px;
+  padding: 4px;
+  margin-left: auto;
+  margin-right: 5px;
+}
