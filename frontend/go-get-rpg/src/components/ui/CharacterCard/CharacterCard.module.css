@@ -6,6 +6,12 @@
   padding: 5px;
   align-items: center;
   width: 100%;
+  cursor: pointer;
+  transition: all linear 0.2s;
+}
+
+.characterCard:hover {
+  transform: translateY(-2px);
 }
 
 .characterProfile {

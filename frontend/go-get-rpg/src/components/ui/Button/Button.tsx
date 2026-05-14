@@ -1,12 +1,15 @@
+import styles from './Button.module.css';
 import type { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   buttonStyle?: 'minusOne' | 'minusFive' | 'plusOne' | 'plusFive';
   text?: string;
+  classes?: string[];
 }
 
-const Button = ({ buttonStyle, text, ...props }: ButtonProps) => {
+const Button = ({ buttonStyle, text, classes, ...props }: ButtonProps) => {
   let buttonText: string = '';
+  const classesString: string = classes?.join(' ') ?? '';
 
   switch (buttonStyle) {
     case 'minusOne':
@@ -23,7 +26,7 @@ const Button = ({ buttonStyle, text, ...props }: ButtonProps) => {
       break;
   }
 
-  return <button {...props}>{text ?? buttonText}</button>;
+  return <button {...props} className={`${classesString} ${styles.btn}`}>{text ?? buttonText}</button>;
 };
 
 export default Button;
