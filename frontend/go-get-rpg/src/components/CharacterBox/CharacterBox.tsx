@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { defaultImage } from '../../variables/defaultImage';
 import { useCharacterData } from '../../hooks/useCharacterData';
 
+const CHARACATER_STORAGE: string = 'selectedCharacter';
+
 const CharacterBox = () => {
   // character data
   const { data } = useCharacterData();
@@ -17,13 +19,18 @@ const CharacterBox = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<
     CharacterData | undefined
   >(() => {
-    const storedCharacter = localStorage.getItem('selectedCharacter');
+    const storedCharacter = localStorage.getItem(CHARACATER_STORAGE);
 
     if (storedCharacter) return JSON.parse(storedCharacter);
     else return undefined;
   });
 
   const handleSelectedCharacter = (id: string) => {
+    if (!id) {
+      setSelectedCharacter(undefined);
+      localStorage.removeItem(CHARACATER_STORAGE);
+    }
+
     const character = data?.find(character => character.id === id);
 
     if (character) {
@@ -34,9 +41,11 @@ const CharacterBox = () => {
   useEffect(() => {
     if (selectedCharacter) {
       localStorage.setItem(
-        'selectedCharacter',
+        CHARACATER_STORAGE,
         JSON.stringify(selectedCharacter),
       );
+    } else {
+      localStorage.removeItem(CHARACATER_STORAGE);
     }
   }, [selectedCharacter]);
 

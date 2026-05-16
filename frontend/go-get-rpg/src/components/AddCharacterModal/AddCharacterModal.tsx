@@ -141,7 +141,7 @@ const AddCharacterModal = ({
         />
         <label htmlFor='InIsNpc'>NPC</label>
 
-        {isError && <p>{error.message}</p>}
+        {isError && <p>{'Error when adding character'}</p>}
 
         <div className={styles.buttonContainer}>
           <Button

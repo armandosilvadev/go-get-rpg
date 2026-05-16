@@ -1,3 +1,4 @@
+import { useDeleteCharacter } from '../../../hooks/useDeleteCharacter';
 import type { CharacterData } from '../../interface/characterData';
 import Button from '../Button/Button';
 import styles from './CharacterCard.module.css';
@@ -17,6 +18,11 @@ const CharacterCard = ({
   npc,
   selectCharacter,
 }: CharacterCardProps) => {
+  const { mutate } = useDeleteCharacter();
+
+  const handleDelete = (id: string) => {
+    mutate(id);
+  };
   return (
     <div
       id={id}
@@ -38,7 +44,17 @@ const CharacterCard = ({
           {mana} / {maxMana}
         </span>
       </div>
-      <Button text='X' />
+
+      {/* delete button */}
+      <Button
+        text='X'
+        onClick={e => {
+          e.stopPropagation();
+
+          selectCharacter('');
+          handleDelete(id ? id : '');
+        }}
+      />
     </div>
   );
 };
