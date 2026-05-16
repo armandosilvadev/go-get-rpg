@@ -2,7 +2,7 @@ import axios, { type AxiosPromise } from 'axios';
 import { API_URL } from '../variables/apiUrl';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const deleteData = (id: string): AxiosPromise<CharacterData> => {
+const deleteData = async (id: string): AxiosPromise<CharacterData> => {
   const response = axios.delete(`${API_URL}/character/${id}`);
   return response;
 };
