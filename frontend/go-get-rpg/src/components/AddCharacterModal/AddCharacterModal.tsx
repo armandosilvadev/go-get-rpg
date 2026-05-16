@@ -3,6 +3,7 @@ import styles from './AddCharacterModal.module.css';
 import Button from '../ui/Button/Button';
 import { useAddCharacter } from '../../hooks/useAddCharacter';
 import type { CharacterData } from '../interface/characterData';
+import Input from '../ui/Input/Input';
 
 interface AddCharacterModalProps {
   isOpen: boolean;
@@ -32,7 +33,7 @@ const AddCharacterModal = ({
   const [npc, setNpc] = useState<boolean>(false);
 
   // mutate character
-  const { isError, error, isPending, mutate } = useAddCharacter();
+  const { isError, isPending, mutate } = useAddCharacter();
 
   const handleHasMana = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
@@ -72,18 +73,18 @@ const AddCharacterModal = ({
       >
         <div className={styles.nameBox}>
           <label htmlFor='InName'>Name: </label>
-          <input
+          <Input
             type='text'
             maxLength={30}
             id='InName'
             required
-            onChange={e => setName(e.target.value)}
+            onChange={e => setName(e.target.value.trim())}
           />
         </div>
 
         <div className={styles.hpBox}>
           <label htmlFor='InMaxHp'>Maximum HP: </label>
-          <input
+          <Input
             type='number'
             id='InMaxHp'
             min={1}
@@ -93,7 +94,7 @@ const AddCharacterModal = ({
           />
 
           <label htmlFor='InHp'>Currently HP: </label>
-          <input
+          <Input
             type='number'
             id='InHp'
             min={0}
@@ -103,7 +104,7 @@ const AddCharacterModal = ({
           />
         </div>
 
-        <input
+        <Input
           type='checkbox'
           id='manaSelect'
           onChange={handleHasMana}
@@ -114,7 +115,7 @@ const AddCharacterModal = ({
           className={`${styles.manaBox} ${styles[hasMana ? 'show' : 'hidden']}`}
         >
           <label htmlFor='InMaxMana'>Maximum Mana: </label>
-          <input
+          <Input
             type='number'
             id='InMaxMana'
             min={0}
@@ -124,7 +125,7 @@ const AddCharacterModal = ({
           />
 
           <label htmlFor='InMana'>Mana: </label>
-          <input
+          <Input
             type='number'
             id='InMana'
             min={0}
@@ -134,7 +135,7 @@ const AddCharacterModal = ({
           />
         </div>
 
-        <input
+        <Input
           type='checkbox'
           id='InIsNpc'
           onChange={e => setNpc(e.target.checked)}
