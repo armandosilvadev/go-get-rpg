@@ -14,15 +14,14 @@ const CharacterCard = ({
   hp,
   maxMana,
   mana,
-  isNpc,
+  npc,
   selectCharacter,
 }: CharacterCardProps) => {
-   
   return (
     <div
       id={id}
-      className={`${styles.characterCard} ${styles[isNpc ? 'npc' : 'player']} flex`}
-      onClick={() => selectCharacter(id)}
+      className={`${styles.characterCard} ${styles[npc ? 'npc' : 'player']} flex`}
+      onClick={() => selectCharacter(id ? id : '')}
     >
       <div className={`${styles.characterProfile} flex`}>
         <img
