@@ -9,7 +9,7 @@ const postData = async (data: CharacterData): AxiosPromise<CharacterData> => {
   return response;
 };
 
-export function useDeleteCharacter() {
+export function useAddCharacter() {
   const queryClient = useQueryClient();
   const mutate = useMutation({
     mutationFn: postData,

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './AddCharacterModal.module.css';
 import Button from '../ui/Button/Button';
-import { useDeleteCharacter } from '../../hooks/useDeleteCharacter';
+import { useAddCharacter } from '../../hooks/useAddCharacter';
 import type { CharacterData } from '../interface/characterData';
 
 interface AddCharacterModalProps {
@@ -32,7 +32,7 @@ const AddCharacterModal = ({
   const [npc, setNpc] = useState<boolean>(false);
 
   // mutate character
-  const { isError, error, isPending, mutate } = useDeleteCharacter();
+  const { isError, error, isPending, mutate } = useAddCharacter();
 
   const handleHasMana = (
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
