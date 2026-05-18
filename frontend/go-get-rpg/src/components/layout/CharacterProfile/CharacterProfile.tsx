@@ -1,16 +1,16 @@
 import styles from './CharacterProfile.module.css';
 
 interface CharacterProfileProps {
-  characterImage: string;
+  image: string;
   name: string | undefined;
 }
 
-const CharacterProfile = ({ characterImage, name }: CharacterProfileProps) => {
+const CharacterProfile = ({ image, name }: CharacterProfileProps) => {
   return (
     <div className={styles.profileBox}>
       <figure className={`${styles.figureBox} flex flex-center flex-column`}>
         <img
-          src={characterImage}
+          src={image}
           alt={`${name}'s image`}
           className={styles.characterImage}
         />

@@ -14,6 +14,9 @@ const AddCharacterModal = ({
   isOpen,
   handleIsOpen,
 }: AddCharacterModalProps) => {
+  // Character image
+  const [image, setImage] = useState<string>();
+
   // name
   const [name, setName] = useState<string>('');
 
@@ -46,6 +49,7 @@ const AddCharacterModal = ({
     e.preventDefault();
 
     const characterData: CharacterData = {
+      image,
       name: name.trim(),
       maxHp,
       hp: hp || maxHp,
@@ -71,6 +75,17 @@ const AddCharacterModal = ({
         className={`${styles.addCharacterForm} flex flex-column`}
         onSubmit={handleSubmit}
       >
+        {/** Character image */}
+        <div>
+          <label htmlFor='InImage'>Image: </label>
+          <Input
+            type='text'
+            id='InImage'
+            onChange={e => setImage(e.target.value)}
+          ></Input>
+        </div>
+
+        {/** Character name */}
         <div className={styles.nameBox}>
           <label htmlFor='InName'>Name: </label>
           <Input
@@ -82,6 +97,7 @@ const AddCharacterModal = ({
           />
         </div>
 
+        {/** Character HP */}
         <div className={styles.hpBox}>
           <label htmlFor='InMaxHp'>Maximum HP: </label>
           <Input
@@ -104,6 +120,7 @@ const AddCharacterModal = ({
           />
         </div>
 
+        {/** Character mana */}
         <Input
           type='checkbox'
           id='manaSelect'
@@ -135,6 +152,7 @@ const AddCharacterModal = ({
           />
         </div>
 
+        {/** Character npc */}
         <Input
           type='checkbox'
           id='InIsNpc'

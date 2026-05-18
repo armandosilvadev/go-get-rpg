@@ -9,7 +9,7 @@ interface CharacterCardProps extends CharacterData {
 
 const CharacterCard = ({
   id,
-  charImage,
+  image,
   name = '',
   maxHp,
   hp,
@@ -31,7 +31,7 @@ const CharacterCard = ({
     >
       <div className={`${styles.characterProfile} flex`}>
         <img
-          src={charImage}
+          src={image}
           className={styles.characterImage}
         />
         <span className={styles.characterName}>{name}</span>

@@ -52,7 +52,7 @@ const CharacterBox = () => {
   return (
     <div className={`${styles.characterBoxContainer} grid`}>
       <CharacterProfile
-        characterImage={selectedCharacter?.charImage ?? defaultImage}
+        image={selectedCharacter?.image ?? defaultImage}
         name={selectedCharacter?.name}
       />
       <CharacterStats

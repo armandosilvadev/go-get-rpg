@@ -6,5 +6,5 @@ export interface CharacterData {
   maxMana: number;
   mana: number;
   npc: boolean;
-  charImage?: string;
+  image?: string;
 }
