@@ -8,10 +8,14 @@ import { type CharacterData } from '../interface/characterData';
 import { useEffect, useState } from 'react';
 import { defaultImage } from '../../variables/defaultImage';
 import { useCharacterData } from '../../hooks/useCharacterData';
+import { useUpdateCharacter } from '../../hooks/useUpdateCharacter';
 
 const CHARACTER_STORAGE_KEY: string = 'selectedCharacter';
 
 const CharacterBox = () => {
+  // update Character hook
+  const { mutate } = useUpdateCharacter();
+
   // character data
   const { data } = useCharacterData();
 
@@ -49,6 +53,32 @@ const CharacterBox = () => {
     }
   }, [selectedCharacter]);
 
+  // handle Hp change
+  const handleOnClickHp = (hp: number) => {
+    if (selectedCharacter) {
+      const updatedHp = selectedCharacter?.hp + hp;
+      const updatedCharacter: CharacterData = {
+        ...selectedCharacter,
+        hp: updatedHp,
+      };
+      setSelectedCharacter(updatedCharacter);
+      mutate(updatedCharacter);
+    }
+  };
+
+  // handle Mana change
+  const handleOnClickMana = (mana: number) => {
+    if (selectedCharacter) {
+      const updatedMana = selectedCharacter.mana + mana;
+      const updatedCharacter: CharacterData = {
+        ...selectedCharacter,
+        mana: updatedMana,
+      };
+      setSelectedCharacter(updatedCharacter);
+      mutate(updatedCharacter);
+    }
+  };
+
   return (
     <div className={`${styles.characterBoxContainer} grid`}>
       <CharacterProfile
@@ -56,6 +86,8 @@ const CharacterBox = () => {
         name={selectedCharacter?.name}
       />
       <CharacterStats
+        handleHp={e => handleOnClickHp(Number(e.currentTarget.value))}
+        handleMana={e => handleOnClickMana(Number(e.currentTarget.value))}
         maxHp={selectedCharacter?.maxHp ?? 0}
         hp={selectedCharacter?.hp ?? 0}
         maxMana={selectedCharacter?.maxMana}

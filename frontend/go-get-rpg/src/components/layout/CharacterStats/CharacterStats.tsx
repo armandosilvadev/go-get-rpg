@@ -6,32 +6,61 @@ interface CharacterStatsProps {
   hp: number;
   maxMana?: number;
   mana?: number;
+  handleHp(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
+  handleMana(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void;
 }
 
-/**
- *
- * @param param0 maxHp: number; hp: number; maxMana?: number, mana?: number
- * @returns A character stats component where it can have the maximum and current HP and an option maximum and current MANA
- */
-
-const CharacterStats = ({ maxHp, hp, maxMana, mana }: CharacterStatsProps) => {
+const CharacterStats = ({
+  maxHp,
+  hp,
+  maxMana,
+  mana,
+  handleHp,
+  handleMana
+}: CharacterStatsProps) => {
   return (
     <div className={`${styles.characterStatsBox} flex flex-column flex-center`}>
       <div className={styles.hpBox}>
-        <Button buttonStyle='minusOne' />
-        <Button buttonStyle='minusFive' />
+        <Button
+          buttonStyle='minusOne'
+          onClick={e => handleHp(e)}
+        />
+        <Button
+          buttonStyle='minusFive'
+          onClick={e => handleHp(e)}
+        />
         <span className={styles.currentHp}>{hp}</span> /{' '}
         <span className={styles.maxHp}>{maxHp}</span>
-        <Button buttonStyle='plusFive' />
-        <Button buttonStyle='plusOne' />
+        <Button
+          buttonStyle='plusFive'
+          onClick={e => handleHp(e)}
+        />
+        <Button
+          buttonStyle='plusOne'
+          onClick={e => handleHp(e)}
+        />
       </div>
-      <div className={`${styles.manaBox} ${styles[maxMana ? 'show' : 'hidden']}`}>
-        <Button buttonStyle='minusOne' />
-        <Button buttonStyle='minusFive' />
+      <div
+        className={`${styles.manaBox} ${styles[maxMana ? 'show' : 'hidden']}`}
+      >
+        <Button
+          buttonStyle='minusOne'
+          onClick={e => handleMana(e)}
+        />
+        <Button
+          buttonStyle='minusFive'
+          onClick={e => handleMana(e)}
+        />
         <span className={styles.currentMana}>{mana}</span> /{' '}
         <span className={styles.maxMana}>{maxMana}</span>
-        <Button buttonStyle='plusFive' />
-        <Button buttonStyle='plusOne' />
+        <Button
+          buttonStyle='plusFive'
+          onClick={e => handleMana(e)}
+        />
+        <Button
+          buttonStyle='plusOne'
+          onClick={e => handleMana(e)}
+        />
       </div>
     </div>
   );

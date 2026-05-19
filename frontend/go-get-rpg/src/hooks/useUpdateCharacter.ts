@@ -1,17 +1,10 @@
 import axios, { type AxiosPromise } from 'axios';
 import { API_URL } from '../variables/apiUrl';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { CharacterData } from '../components/interface/characterData';
 
-interface UpdateCharacter {
-  id: string;
-  data: CharacterData;
-}
-
-const putData = ({
-  id,
-  data,
-}: UpdateCharacter): AxiosPromise<CharacterData> => {
-  const response = axios.put(`${API_URL}/character/${id}`, data);
+const putData = (data: CharacterData): AxiosPromise<CharacterData> => {
+  const response = axios.put(`${API_URL}/character/${data.id}`, data);
   return response;
 };
 
